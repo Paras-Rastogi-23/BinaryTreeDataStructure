@@ -186,6 +186,91 @@ class BinaryTree{
         rightViewOfBinaryTree(node.right ,level+1);
         rightViewOfBinaryTree(node.left,level+1);
     }
+
+    public void getInorderWithoutRecursion(Node node){
+        if(node == null)return;
+        Stack<Node> s = new Stack<>();
+        while(node !=null){
+            s.push(node);
+            node = node.left;
+        }
+
+        while(s.size()> 0){
+            Node top = s.pop();
+            System.out.print(top.value+" ");
+            if(top.right != null){
+                Node tmp = top.right;
+                while(tmp !=null){
+                    s.push(tmp);
+                    tmp = tmp.left;
+                }
+            }
+        }
+
+    }
+
+    public void getPreorderWithoutRecursion(Node node){
+        if(node == null){
+            return;
+        }
+        Node n = node;
+        Stack<Node> s = new Stack<>();
+        while (node != null){
+            System.out.print(node.value+" ");
+            s.push(node);
+            node = node.left;
+        }
+        while (s.size()>0){
+            Node t = s.pop();
+            if(t.right != null){
+                Node tmp = t.right;
+                while (tmp != null){
+                    System.out.print(tmp.value + " ");
+                    s.push(tmp);
+                    tmp = tmp.left;
+                }
+            }
+        }
+    }
+
+    public void getPostorderWithoutRecursion(Node node){
+        if(node == null)return;
+        Stack<Node> s1 = new Stack<>();
+        Stack<Node> s2 = new Stack<>();
+        s1.push(node);
+        while (s1.size() > 0){
+            Node t = s1.pop();
+            if(t.left != null)
+                s1.push(t.left);
+            if(t.right != null)
+                s1.push(t.right);
+            s2.push(t);
+        }
+        while (s2.size()>0) {
+            System.out.print(s2.pop().value+" ");
+        }
+    }
+
+    public Node getMirrorTree(Node node){
+        if(node == null)
+            return null;
+        Node n = node.left;
+        node.left = node.right;
+        node.right = n;
+        getMirrorTree(node.left);
+        getMirrorTree(node.right);
+        return (node);
+    }
+    public Node deleteTree(Node node){
+        if(node == null) return null;
+
+        node.left = deleteTree(node.left);
+        node.right= deleteTree(node.right);
+
+        System.out.println("Delete node : "+node.value);
+        node = null;
+        return(node);
+    }
 }
 
 public class BinaryTreeDataStructure {
@@ -228,10 +313,10 @@ public class BinaryTreeDataStructure {
             b.printValuesAtGivenLevel(root,i);
         }
 
-        System.out.println("\n Lever order traversal of tree : ");
+        System.out.println("\nLever order traversal of tree : ");
         b.levelOrderTraversalWithoutRecursion(root);
 
-        System.out.println("\n Reverse level order traversal : ");
+        System.out.println("\nReverse level order traversal : ");
         for(int j = b.getHeightOfTree(root)+1; j>=0;j--){
             b.printValuesAtGivenLevel(root,j);
         }
@@ -245,7 +330,25 @@ public class BinaryTreeDataStructure {
         System.out.println("\n leftViewOfBinaryTree : ");
         b.leftViewOfBinaryTree(root , 0);
 
-        System.out.println("\n rightViewOfBinaryTree : ");
+        System.out.println("\nrightViewOfBinaryTree : ");
         b.rightViewOfBinaryTree(root , 0);
+
+        System.out.println("\nThe inorder Traversal without using recursion is : ");
+        b.getInorderWithoutRecursion(root);
+
+        System.out.println("\nThe preorder Traversal without using recursion is : ");
+        b.getPreorderWithoutRecursion(root);
+
+        System.out.println("\nThe postorder Traversal without using recursion is : ");
+        b.getPostorderWithoutRecursion(root);
+
+        System.out.println("\nThe Mirror tree is in InOrder traversal is : ");
+        Node mirror = b.getMirrorTree(root);
+        b.getInorderWithoutRecursion(mirror);
+
+
+        System.out.println("\nAfter deletion of tree : ");
+        Node deleteTree = b.deleteTree(root);
+        System.out.println("After Deletion of tree it becomes : "+deleteTree);
     }
 }
