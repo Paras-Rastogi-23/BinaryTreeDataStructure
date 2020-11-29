@@ -271,6 +271,15 @@ class BinaryTree{
         node = null;
         return(node);
     }
+
+    public boolean checkIdenticalTree(Node node1 , Node node2){
+        if(node1 ==null && node2 == null)
+            return true;
+        if((node1 == null && node2 !=null)||(node2 == null && node1 != null))
+            return false;
+        return ((node1.value == node2.value) && checkIdenticalTree(node1.left , node2.left) && checkIdenticalTree(node1.right,node2.right));
+
+    }
 }
 
 public class BinaryTreeDataStructure {
@@ -286,6 +295,16 @@ public class BinaryTreeDataStructure {
         root.left.right.left   = b.createNewNode(5);
         root.left.right.right   = b.createNewNode(11);
         root.right.right.left   = b.createNewNode(4);
+
+        Node root2    = b.createNewNode(2);
+        root2.left    = b.createNewNode(7);
+        root2.right   = b.createNewNode(5);
+        root2.left.left   = b.createNewNode(2);
+        root2.left.right   = b.createNewNode(6);
+        root2.right.right   = b.createNewNode(9);
+        root2.left.right.left   = b.createNewNode(5);
+        root2.left.right.right   = b.createNewNode(11);
+        root2.right.right.left   = b.createNewNode(4);
 
         System.out.println("Inorder : ");
         b.inorder(root);
@@ -350,5 +369,8 @@ public class BinaryTreeDataStructure {
         System.out.println("\nAfter deletion of tree : ");
         Node deleteTree = b.deleteTree(root);
         System.out.println("After Deletion of tree it becomes : "+deleteTree);
+
+        System.out.print("Check whether root and root2 both trees are identical or not : ");
+        System.out.print(b.checkIdenticalTree(root,root2));
     }
 }
