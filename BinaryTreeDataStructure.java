@@ -3,11 +3,13 @@ import java.io.*;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
+import java.util.TreeMap;
 
 class Node{
     int value;
     Node left;
     Node right;
+    int height;
 }
 
 class BinaryTree{
@@ -277,8 +279,53 @@ class BinaryTree{
             return true;
         if((node1 == null && node2 !=null)||(node2 == null && node1 != null))
             return false;
-        return ((node1.value == node2.value) && checkIdenticalTree(node1.left , node2.left) && checkIdenticalTree(node1.right,node2.right));
+        return ((node1.value == node2.value) &&
+                checkIdenticalTree(node1.left , node2.left) &&
+                checkIdenticalTree(node1.right,node2.right));
+    }
 
+    public int findTheLevelOfNode(Node node , int nodeValue ,int level){
+        if(node == null) {
+            return 0;
+        }
+        int l;
+       if(nodeValue == node.value) {
+           return level;
+       }
+       l =findTheLevelOfNode(node.left,nodeValue,level+1);
+       if(l>0)
+           return l;
+
+       l = findTheLevelOfNode(node.right,nodeValue,level+1);
+       return l;
+    }
+
+    public void getTopViewOfTree(Node node){
+        if(node == null){
+            return;
+        }
+        Queue<Node> q = new LinkedList<>();
+        TreeMap<Integer , Integer> treeMap = new TreeMap<>();
+        q.add(node);
+
+        while (!q.isEmpty()){
+            Node temp = q.remove();
+            int h = temp.height;
+            if(!treeMap.containsKey(h)){
+                treeMap.put(h, temp.value);
+            }
+            if(temp.left != null)
+            {
+                q.add(temp.left);
+                temp.left.height = h-1;
+            }
+            if(temp.right != null)
+            {
+                q.add(temp.right);
+                temp.right.height = h+1;
+            }
+        }
+        System.out.print(treeMap.values());
     }
 }
 
@@ -305,6 +352,16 @@ public class BinaryTreeDataStructure {
         root2.left.right.left   = b.createNewNode(5);
         root2.left.right.right   = b.createNewNode(11);
         root2.right.right.left   = b.createNewNode(4);
+
+        Node rootToBeDeleted    = b.createNewNode(2);
+        rootToBeDeleted.left    = b.createNewNode(7);
+        rootToBeDeleted.right   = b.createNewNode(5);
+        rootToBeDeleted.left.left   = b.createNewNode(2);
+        rootToBeDeleted.left.right   = b.createNewNode(6);
+        rootToBeDeleted.right.right   = b.createNewNode(9);
+        rootToBeDeleted.left.right.left   = b.createNewNode(5);
+        rootToBeDeleted.left.right.right   = b.createNewNode(11);
+        rootToBeDeleted.right.right.left   = b.createNewNode(4);
 
         System.out.println("Inorder : ");
         b.inorder(root);
@@ -367,10 +424,19 @@ public class BinaryTreeDataStructure {
 
 
         System.out.println("\nAfter deletion of tree : ");
-        Node deleteTree = b.deleteTree(root);
+        Node deleteTree = b.deleteTree(rootToBeDeleted);
         System.out.println("After Deletion of tree it becomes : "+deleteTree);
+
 
         System.out.print("Check whether root and root2 both trees are identical or not : ");
         System.out.print(b.checkIdenticalTree(root,root2));
+
+        System.out.print("\nEnter the value of Node whose level you want to find out : ");
+        int nodeValue = Integer.parseInt(br.readLine());
+        int levelOfNode = b.findTheLevelOfNode(root,nodeValue,1);
+        System.out.println(levelOfNode!=0?"The level at which "+nodeValue+" is present : "+levelOfNode:nodeValue+" is not present in the tree");
+
+        System.out.println("The top view of tree is :");
+        b.getTopViewOfTree(root);
     }
 }
