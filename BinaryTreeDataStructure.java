@@ -423,8 +423,7 @@ class BinaryTree{
     public void printVerticalSumOfTree(Node node){
         if(node == null)return;
         TreeMap<Integer,Integer> map = new TreeMap<Integer,Integer>();
-        int h=0;
-        getVerticalSumOfTree(node,h,map);
+        getVerticalSumOfTree(node,0,map);
         map.forEach((k,v) ->{
             System.out.format("\nSum of nodes at Level %d --> %d",k,v);
         });
