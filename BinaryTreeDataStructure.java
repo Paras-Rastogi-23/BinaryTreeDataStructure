@@ -418,23 +418,25 @@ class BinaryTree{
         }
         getVerticalOrderOfTree(node.left,height-1,map);
         getVerticalOrderOfTree(node.right,height+1,map);
+    }
 
-//        if (node == null) {
-//            return;
-//        }
-//
-//        if (m.get(hd) == null) {
-//            ArrayList<Integer> l = new ArrayList<Integer>();
-//            l.add(node.value);
-//            m.put(hd, l);
-//        } else {
-//            ArrayList<Integer> l = m.get(hd);
-//            l.add(node.value);
-//            m.put(hd, l);
-//        }
-//
-//        getVerticalOrderOfTree(node.left, hd - 1, m);
-//        getVerticalOrderOfTree(node.right, hd + 1, m);
+    public void printVerticalSumOfTree(Node node){
+        if(node == null)return;
+        TreeMap<Integer,Integer> map = new TreeMap<Integer,Integer>();
+        int h=0;
+        getVerticalSumOfTree(node,h,map);
+        map.forEach((k,v) ->{
+            System.out.format("\nSum of nodes at Level %d --> %d",k,v);
+        });
+
+    }
+
+    public void getVerticalSumOfTree(Node node , int height , TreeMap<Integer,Integer> m){
+        if(node == null)return;
+        int value = (!m.containsKey(height)?0:m.get(height));
+        m.put(height,value+node.value);
+        getVerticalSumOfTree(node.left , height+1,m);
+        getVerticalSumOfTree(node.right,height-1,m);
     }
 }
 
@@ -556,5 +558,8 @@ public class BinaryTreeDataStructure {
 
         System.out.println("\nThe Vertical-Order nodes of tree are :");
         b.printVerticalOrderOfTree(root);
+
+        System.out.println("\n The vertical Sum of tree :");
+        b.printVerticalSumOfTree(root);
     }
 }
