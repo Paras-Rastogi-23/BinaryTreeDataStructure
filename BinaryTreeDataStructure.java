@@ -1,9 +1,6 @@
 // Program to create a tree and find Inorder,Preorder & Postorder
 import java.io.*;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Stack;
-import java.util.TreeMap;
+import java.util.*;
 
 class Node{
     int value;
@@ -327,6 +324,118 @@ class BinaryTree{
         }
         System.out.print(treeMap.values());
     }
+
+    public void getBottomViewOfTree(Node node){
+        if(node == null)
+            return;
+        Queue<Node> q = new LinkedList<>();
+        TreeMap<Integer,Integer> map = new TreeMap<>();
+        q.add(node);
+        while (q.size()>0){
+            Node temp =  q.remove();
+            int ht = temp.height;
+            map.put(ht,temp.value);
+
+
+            if(temp.left != null){
+                q.add(temp.left);
+                temp.left.height = ht-1;
+            }
+            if(temp.right != null){
+                q.add(temp.right);
+                temp.right.height = ht+1;
+            }
+        }
+        System.out.println(map.values());
+    }
+
+    public void getBoundaryNodesOfTree(Node node){
+        if(node == null)return;
+        System.out.print(node.value+" ");
+        printLeftBoundary(node.left);
+        printRightBoundary(node.right);
+        printLeaves(node.left);
+        printLeaves(node.right);
+
+    }
+
+    public void printLeftBoundary(Node node){
+        if(node == null)
+            return;
+        if(node.left!=null){
+            System.out.print(node.value+" ");
+            printLeftBoundary(node.left);
+        }else if(node.right!=null){
+            System.out.print(node.value+" ");
+            printLeftBoundary(node.right);
+        }
+    }
+
+    public void printLeaves(Node node){
+        if(node == null)return;
+        printLeaves(node.left);
+        if(node.left!=null && node.right !=null)
+            System.out.print(node.value+" ");
+        printLeaves(node.right);
+    }
+
+    public void printRightBoundary(Node node){
+        if(node == null)
+            return;
+        if(node.right!=null)
+        {
+            printRightBoundary(node.right);
+            System.out.print(node.value+" ");
+        }else if(node.left!=null)
+        {
+           printRightBoundary(node.left);
+           System.out.print(node.value+" ");
+        }
+    }
+
+    public void printVerticalOrderOfTree(Node node){
+        if(node == null)return;
+        int ht = 0;
+        TreeMap<Integer,ArrayList<Integer>> map = new TreeMap<Integer , ArrayList<Integer>>();
+        getVerticalOrderOfTree(node , ht , map);
+        for (Map.Entry<Integer , ArrayList<Integer>> m: map.entrySet()){
+            System.out.println(m.getValue());
+        }
+    }
+
+    public void getVerticalOrderOfTree(Node node , int height , TreeMap<Integer,ArrayList<Integer>> map){
+        if(node == null)return;
+
+        if(!map.containsKey(height)){
+            ArrayList<Integer> l = new ArrayList<>();
+            l.add(node.value);
+            map.put(height,l);
+        }
+        else{
+            ArrayList<Integer> l = map.get(height);
+            l.add(node.value);
+            map.put(height,l);
+        }
+        getVerticalOrderOfTree(node.left,height-1,map);
+        getVerticalOrderOfTree(node.right,height+1,map);
+
+//        if (node == null) {
+//            return;
+//        }
+//
+//        if (m.get(hd) == null) {
+//            ArrayList<Integer> l = new ArrayList<Integer>();
+//            l.add(node.value);
+//            m.put(hd, l);
+//        } else {
+//            ArrayList<Integer> l = m.get(hd);
+//            l.add(node.value);
+//            m.put(hd, l);
+//        }
+//
+//        getVerticalOrderOfTree(node.left, hd - 1, m);
+//        getVerticalOrderOfTree(node.right, hd + 1, m);
+    }
 }
 
 public class BinaryTreeDataStructure {
@@ -438,5 +547,14 @@ public class BinaryTreeDataStructure {
 
         System.out.println("The top view of tree is :");
         b.getTopViewOfTree(root);
+
+        System.out.println("The bottom view of tree is :");
+        b.getBottomViewOfTree(root);
+
+        System.out.println("The Boundary nodes of tree are :");
+        b.getBoundaryNodesOfTree(root);
+
+        System.out.println("\nThe Vertical-Order nodes of tree are :");
+        b.printVerticalOrderOfTree(root);
     }
 }
