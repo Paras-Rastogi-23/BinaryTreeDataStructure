@@ -143,10 +143,8 @@ class BinaryTree{
         Queue<Node> q = new LinkedList<>();
         q.add(node);
 
-        while (true){
+        while (q.size()>0){
              int count = q.size();
-             if(count == 0)
-                 break;
              while (count>0){
                  Node top = q.remove();
                  System.out.print(top.value+" ");
@@ -437,6 +435,55 @@ class BinaryTree{
         getVerticalSumOfTree(node.left , height+1,m);
         getVerticalSumOfTree(node.right,height-1,m);
     }
+
+    public void sumOfNodeValuesLevelWise(Node node){
+        if(node == null)return;
+
+        Queue<Node> q = new LinkedList<>();
+        q.add(node);
+        int i =1;
+        while (q.size()>0){
+            int count = q.size();
+            int sum = 0;
+            while (count>0){
+                Node top = q.remove();
+                sum += top.value;
+                if(top.left != null){
+                    q.add(top.left);
+                }
+                if(top.right != null){
+                    q.add(top.right);
+                }
+                count--;
+            }
+            System.out.println("The Sum of the value of nodes at level "+i++ +" is : "+sum);
+        }
+   }
+
+   public boolean recursiveSearch(Node node ,int key){
+        if(node == null) return false;
+        if(node.value == key) return true;
+        return (recursiveSearch(node.left , key) || recursiveSearch(node.right , key));
+   }
+
+   public boolean iterativeSearch(Node node ,int key){
+        if(node == null) return false;
+        Queue<Node> q = new LinkedList<Node>();
+        q.add(node);
+        while (q.size()>0){
+            Node temp  = q.remove();
+            if(temp.value == key)
+                return true;
+            if(temp.left != null){
+                q.add(temp.left);
+            }
+            if(temp.right != null){
+                q.add(temp.right);
+            }
+        }
+        return false;
+   }
+
 }
 
 public class BinaryTreeDataStructure {
@@ -558,7 +605,19 @@ public class BinaryTreeDataStructure {
         System.out.println("\nThe Vertical-Order nodes of tree are :");
         b.printVerticalOrderOfTree(root);
 
-        System.out.println("\n The vertical Sum of tree :");
+        System.out.println("\nThe vertical Sum of tree :");
         b.printVerticalSumOfTree(root);
+
+        System.out.println("\nThe Sum of elements at certain levels are given below :");
+        b.sumOfNodeValuesLevelWise(root);
+
+        System.out.println("Enter the element which you want to search in the tree");
+        int key =Integer.parseInt(br.readLine());
+        System.out.println(b.recursiveSearch(root,key)?"Yes element "+key+" is present" : "No Element "+key+" is not present");
+        System.out.println(b.iterativeSearch(root,key)?"Yes element "+key+" is present" : "No Element "+key+" is not present");
     }
 }
+
+
+
+
