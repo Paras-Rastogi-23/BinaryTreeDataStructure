@@ -484,6 +484,39 @@ class BinaryTree{
         return false;
    }
 
+   public void getSpiralFormOfTree(Node node){
+        if(node == null)return;
+        Stack<Node> s1= new Stack<Node>();
+        Stack<Node> s2 = new Stack<Node>();
+        s1.add(node);
+
+        while (!s1.isEmpty() || !s2.isEmpty()){
+
+            while (!s1.isEmpty()){
+                Node temp = s1.pop();
+                System.out.print(temp.value+" ");
+                if(temp.left != null)
+                    s2.push(temp.left);
+                if(temp.right != null)
+                    s2.push(temp.right);
+            }
+            System.out.println();
+
+            while (!s2.isEmpty()){
+                Node temp = s2.pop();
+                System.out.print(temp.value+" ");
+                if(temp.right != null){
+                    s1.push(temp.right);
+                }
+                if(temp.left != null);{
+                    s1.push(temp.left);
+                }
+            }
+            System.out.println();
+        }
+
+   }
+
 }
 
 public class BinaryTreeDataStructure {
@@ -615,6 +648,12 @@ public class BinaryTreeDataStructure {
         int key =Integer.parseInt(br.readLine());
         System.out.println(b.recursiveSearch(root,key)?"Yes element "+key+" is present" : "No Element "+key+" is not present");
         System.out.println(b.iterativeSearch(root,key)?"Yes element "+key+" is present" : "No Element "+key+" is not present");
+
+        System.out.println("Preorder : ");
+        b.preorder(root);
+
+//        System.out.println("\nSpiral form of tree is given below :");
+//        b.getSpiralFormOfTree(root);
     }
 }
 
