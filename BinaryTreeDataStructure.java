@@ -484,38 +484,54 @@ class BinaryTree{
         return false;
    }
 
-   public void getSpiralFormOfTree(Node node){
-        if(node == null)return;
-        Stack<Node> s1= new Stack<Node>();
+    public void printInSpiralForm(Node node) {
+        Stack<Node> s1 = new Stack<Node>();
         Stack<Node> s2 = new Stack<Node>();
-        s1.add(node);
 
-        while (!s1.isEmpty() || !s2.isEmpty()){
+        s1.push(node);
+        while (!s1.isEmpty() || !s2.isEmpty()) {
 
-            while (!s1.isEmpty()){
-                Node temp = s1.pop();
-                System.out.print(temp.value+" ");
-                if(temp.left != null)
-                    s2.push(temp.left);
-                if(temp.right != null)
-                    s2.push(temp.right);
+            while (!s1.isEmpty()) {
+                Node tmp = s1.pop();
+                System.out.print(tmp.value + " ");
+
+                if (tmp.left != null) {
+                    s2.push(tmp.left);
+                }
+
+                if (tmp.right != null) {
+                    s2.push(tmp.right);
+                }
             }
             System.out.println();
 
-            while (!s2.isEmpty()){
-                Node temp = s2.pop();
-                System.out.print(temp.value+" ");
-                if(temp.right != null){
-                    s1.push(temp.right);
+            while (!s2.isEmpty()) {
+                Node tmp = s2.pop();
+                System.out.print(tmp.value + " ");
+
+                if (tmp.right != null) {
+                    s1.push(tmp.right);
                 }
-                if(temp.left != null);{
-                    s1.push(temp.left);
+
+                if (tmp.left != null) {
+                    s1.push(tmp.left);
                 }
             }
             System.out.println();
         }
+    }
 
-   }
+    public void printValuesBetweenGivenLevels(Node node, int level , int level1 , int level2){
+        if(node == null) {
+            return;
+        }
+        if(level==level1 && level2>0){
+            System.out.print(node.value + " ");
+            level=level-1;
+        }
+        printValuesBetweenGivenLevels(node.left,level+1,level1,level2-1);
+        printValuesBetweenGivenLevels(node.right,level+1,level1,level2-1);
+    }
 
 }
 
@@ -552,6 +568,21 @@ public class BinaryTreeDataStructure {
         rootToBeDeleted.left.right.left   = b.createNewNode(5);
         rootToBeDeleted.left.right.right   = b.createNewNode(11);
         rootToBeDeleted.right.right.left   = b.createNewNode(4);
+
+        Node newRoot            = b.createNewNode(2);
+        newRoot.left            = b.createNewNode(7);
+        newRoot.right           = b.createNewNode(5);
+        newRoot.left.left       = b.createNewNode(2);
+        newRoot.left.left.left  = b.createNewNode(19);
+        newRoot.left.right      = b.createNewNode(6);
+        newRoot.right.right     = b.createNewNode(9);
+        newRoot.left.right.left = b.createNewNode(5);
+        newRoot.left.right.left.left    = b.createNewNode(15);
+        newRoot.left.right.left.right   = b.createNewNode(17);
+        newRoot.left.right.right = b.createNewNode(11);
+        newRoot.right.right.left = b.createNewNode(4);
+        newRoot.right.right.left.left   = b.createNewNode(3);
+        newRoot.right.right.left.right   = b.createNewNode(1);
 
         System.out.println("Inorder : ");
         b.inorder(root);
@@ -652,8 +683,11 @@ public class BinaryTreeDataStructure {
         System.out.println("Preorder : ");
         b.preorder(root);
 
-//        System.out.println("\nSpiral form of tree is given below :");
-//        b.getSpiralFormOfTree(root);
+        System.out.println("\nSpiral form of tree is given below :");
+        b.printInSpiralForm(newRoot);
+
+        System.out.println("\nThe node Values between two level 2 and 4 are :-");
+        b.printValuesBetweenGivenLevels(newRoot,1,2,5);
     }
 }
 
