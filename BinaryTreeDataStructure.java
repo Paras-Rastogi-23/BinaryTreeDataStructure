@@ -351,10 +351,9 @@ class BinaryTree{
         if(node == null)return;
         System.out.print(node.value+" ");
         printLeftBoundary(node.left);
-        printRightBoundary(node.right);
         printLeaves(node.left);
         printLeaves(node.right);
-
+        printRightBoundary(node.right);
     }
 
     public void printLeftBoundary(Node node){
@@ -372,7 +371,7 @@ class BinaryTree{
     public void printLeaves(Node node){
         if(node == null)return;
         printLeaves(node.left);
-        if(node.left!=null && node.right !=null)
+        if(node.left==null && node.right ==null)
             System.out.print(node.value+" ");
         printLeaves(node.right);
     }
@@ -432,8 +431,8 @@ class BinaryTree{
         if(node == null)return;
         int value = (!m.containsKey(height)?0:m.get(height));
         m.put(height,value+node.value);
-        getVerticalSumOfTree(node.left , height+1,m);
-        getVerticalSumOfTree(node.right,height-1,m);
+        getVerticalSumOfTree(node.left , height-1,m);
+        getVerticalSumOfTree(node.right,height+1,m);
     }
 
     public void sumOfNodeValuesLevelWise(Node node){
@@ -495,12 +494,12 @@ class BinaryTree{
                 Node tmp = s1.pop();
                 System.out.print(tmp.value + " ");
 
-                if (tmp.left != null) {
-                    s2.push(tmp.left);
-                }
-
                 if (tmp.right != null) {
                     s2.push(tmp.right);
+                }
+
+                if (tmp.left != null) {
+                    s2.push(tmp.left);
                 }
             }
             System.out.println();
@@ -509,12 +508,12 @@ class BinaryTree{
                 Node tmp = s2.pop();
                 System.out.print(tmp.value + " ");
 
-                if (tmp.right != null) {
-                    s1.push(tmp.right);
-                }
-
                 if (tmp.left != null) {
                     s1.push(tmp.left);
+                }
+
+                if (tmp.right != null) {
+                    s1.push(tmp.right);
                 }
             }
             System.out.println();
@@ -531,6 +530,29 @@ class BinaryTree{
         }
         printValuesBetweenGivenLevels(node.left,level+1,level1,level2-1);
         printValuesBetweenGivenLevels(node.right,level+1,level1,level2-1);
+    }
+
+    public void getMaximumWidthOfBinaryTree(Node node){
+        if(node == null)return;
+
+        Queue<Node> q = new LinkedList<>();
+        q.add(node);
+        int max_width =0;
+        while (q.size()>0){
+            int count = q.size();
+            if(count>max_width)max_width=count;
+            while (count>0){
+                Node top = q.remove();
+                if(top.left != null){
+                    q.add(top.left);
+                }
+                if(top.right != null){
+                    q.add(top.right);
+                }
+                count--;
+            }
+        }
+        System.out.print(" "+max_width);
     }
 
 }
@@ -576,13 +598,14 @@ public class BinaryTreeDataStructure {
         newRoot.left.left.left  = b.createNewNode(19);
         newRoot.left.right      = b.createNewNode(6);
         newRoot.right.right     = b.createNewNode(9);
+        newRoot.right.right.right       = b.createNewNode(10);
         newRoot.left.right.left = b.createNewNode(5);
         newRoot.left.right.left.left    = b.createNewNode(15);
         newRoot.left.right.left.right   = b.createNewNode(17);
         newRoot.left.right.right = b.createNewNode(11);
         newRoot.right.right.left = b.createNewNode(4);
         newRoot.right.right.left.left   = b.createNewNode(3);
-        newRoot.right.right.left.right   = b.createNewNode(1);
+        newRoot.right.right.left.right  = b.createNewNode(1);
 
         System.out.println("Inorder : ");
         b.inorder(root);
@@ -664,7 +687,7 @@ public class BinaryTreeDataStructure {
         b.getBottomViewOfTree(root);
 
         System.out.println("The Boundary nodes of tree are :");
-        b.getBoundaryNodesOfTree(root);
+        b.getBoundaryNodesOfTree(newRoot);
 
         System.out.println("\nThe Vertical-Order nodes of tree are :");
         b.printVerticalOrderOfTree(root);
@@ -687,7 +710,10 @@ public class BinaryTreeDataStructure {
         b.printInSpiralForm(newRoot);
 
         System.out.println("\nThe node Values between two level 2 and 4 are :-");
-        b.printValuesBetweenGivenLevels(newRoot,1,2,5);
+        b.printValuesBetweenGivenLevels(newRoot,1,2,4);
+
+        System.out.println("\nThe Maximum width of Binary tree is :-");
+        b.getMaximumWidthOfBinaryTree(newRoot);
     }
 }
 
