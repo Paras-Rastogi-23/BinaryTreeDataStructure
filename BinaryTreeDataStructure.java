@@ -563,6 +563,22 @@ class BinaryTree{
                 && whetherTreesAreMirrorTreesOrNot(node1.right,node2.left));
     }
 
+    public boolean whetherTreesAreMirrorStructuresOrNot(Node node1 , Node node2){
+        if(node1==null && node2==null)return true;
+        if(node1==null || node2==null)return false;
+        return ((node1 != null && node2 != null)
+                && whetherTreesAreMirrorStructuresOrNot(node1.left,node2.right)
+                && whetherTreesAreMirrorStructuresOrNot(node1.right,node2.left));
+    }
+
+    public boolean whetherTreesAreSameStructuresOrNot(Node node1 , Node node2){
+        if(node1==null && node2==null)return true;
+        if(node1==null || node2==null)return false;
+        return ((node1 != null && node2 != null)
+                && whetherTreesAreSameStructuresOrNot(node1.left,node2.left)
+                && whetherTreesAreSameStructuresOrNot(node1.right,node2.right));
+    }
+
 }
 
 public class BinaryTreeDataStructure {
@@ -724,7 +740,13 @@ public class BinaryTreeDataStructure {
         b.getMaximumWidthOfBinaryTree(newRoot);
 
         System.out.println("\nThe tree root and root2 are mirror trees :-  ");
-        System.out.print(b.whetherTreesAreMirrorTreesOrNot(root,root));
+        System.out.print(b.whetherTreesAreMirrorTreesOrNot(root,root2));
+
+        System.out.println("\nThe tree root and root2 are mirror Structure trees :-  ");
+        System.out.print(b.whetherTreesAreMirrorStructuresOrNot(root,root2));
+
+        System.out.println("\nThe trees have same Structure trees :-  ");
+        System.out.print(b.whetherTreesAreSameStructuresOrNot(newRoot,newRoot));
     }
 }
 
