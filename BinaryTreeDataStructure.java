@@ -579,6 +579,11 @@ class BinaryTree{
                 && whetherTreesAreSameStructuresOrNot(node1.right,node2.right));
     }
 
+    public boolean whetherTreeFoldableOrNot(Node node){
+        boolean result = whetherTreesAreMirrorStructuresOrNot(node.left,node.right);
+        return result;
+    }
+
 }
 
 public class BinaryTreeDataStructure {
@@ -630,6 +635,15 @@ public class BinaryTreeDataStructure {
         newRoot.right.right.left = b.createNewNode(4);
         newRoot.right.right.left.left   = b.createNewNode(3);
         newRoot.right.right.left.right  = b.createNewNode(1);
+
+        Node foldableRoot = b.createNewNode(1);
+        foldableRoot.left = b.createNewNode(2);
+        foldableRoot.right = b.createNewNode(3);
+        foldableRoot.left.left = b.createNewNode(4);
+        foldableRoot.left.right = b.createNewNode(5);
+        foldableRoot.right.left = b.createNewNode(6);
+        foldableRoot.right.right = b.createNewNode(7);
+
 
         System.out.println("Inorder : ");
         b.inorder(root);
@@ -747,6 +761,9 @@ public class BinaryTreeDataStructure {
 
         System.out.println("\nThe trees have same Structure trees :-  ");
         System.out.print(b.whetherTreesAreSameStructuresOrNot(newRoot,newRoot));
+
+        System.out.println("\nThe tree is foldable or not :-  ");
+        System.out.print(b.whetherTreeFoldableOrNot(foldableRoot));
     }
 }
 
