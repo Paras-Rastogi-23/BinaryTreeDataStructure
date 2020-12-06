@@ -555,6 +555,14 @@ class BinaryTree{
         System.out.print(" "+max_width);
     }
 
+    public boolean whetherTreesAreMirrorTreesOrNot(Node node1 , Node node2){
+        if(node1 == null && node2 == null)return true;
+        if(node1 == null || node2 == null)return false;
+        return (node1.value == node2.value
+                && whetherTreesAreMirrorTreesOrNot(node1.left,node2.right)
+                && whetherTreesAreMirrorTreesOrNot(node1.right,node2.left));
+    }
+
 }
 
 public class BinaryTreeDataStructure {
@@ -714,6 +722,9 @@ public class BinaryTreeDataStructure {
 
         System.out.println("\nThe Maximum width of Binary tree is :-");
         b.getMaximumWidthOfBinaryTree(newRoot);
+
+        System.out.println("\nThe tree root and root2 are mirror trees :-  ");
+        System.out.print(b.whetherTreesAreMirrorTreesOrNot(root,root));
     }
 }
 
