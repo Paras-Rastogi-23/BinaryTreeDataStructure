@@ -613,6 +613,25 @@ class BinaryTree{
         newNode.left = node.left;
         node.left = newNode;
     }
+    int preIndex;
+    public Node createTreeByPreorderAndInorder(int[] pre,int[] in , int start, int end){
+        if(start>end)return null;
+        Node node = createNewNode(pre[preIndex++]);
+        if(start == end)return node;
+
+        int inorderIndex = getIndexOfNodeInInorderArray(node.value,in,start,end);
+        node.left = createTreeByPreorderAndInorder(pre,in,start,inorderIndex-1);
+        node.right= createTreeByPreorderAndInorder(pre,in,inorderIndex+1,end);
+        return node;
+    }
+
+    public int getIndexOfNodeInInorderArray(int value , int[] in , int start , int end){
+        for(int i=start;i<=end;i++){
+            if(in[i] == value)
+                return i;
+        }
+        return -1;
+    }
 
 }
 
@@ -821,6 +840,14 @@ public class BinaryTreeDataStructure {
         b.createDoubleTreeOfGivenTree(rootToBeModifiedIntoDoubleMode);
         System.out.print("\nInorder of tree after DoubleCreation:- ");
         b.inorder(rootToBeModifiedIntoDoubleMode);
+
+        int[] inorder_array = {9,2,6,4,7,1,3,8,5};
+        int[] preorder_array= {1,2,9,4,6,7,3,5,8};
+
+        System.out.println("\nCreate A Binary Tree by Inorder and Preorder");
+        Node rootCreatedByInorderAndPreorder = b.createTreeByPreorderAndInorder(preorder_array,inorder_array,0,inorder_array.length-1);
+        System.out.print("postOrder after create a tree by its inorder and preorder is : ");
+        b.postOrder(rootCreatedByInorderAndPreorder);
 
 
     }
