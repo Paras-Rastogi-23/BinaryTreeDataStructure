@@ -843,10 +843,17 @@ public class BinaryTreeDataStructure {
 
         int[] inorder_array = {9,2,6,4,7,1,3,8,5};
         int[] preorder_array= {1,2,9,4,6,7,3,5,8};
-
         System.out.println("\nCreate A Binary Tree by Inorder and Preorder");
+        System.out.print("\nInorder = ");
+        for (int i = 0; i < inorder_array.length; i++) {
+            System.out.print(inorder_array[i]+" ");
+        }
+        System.out.print("\nPreorder = ");
+        for (int i = 0; i < preorder_array.length; i++) {
+            System.out.print(preorder_array[i]+" ");
+        }
         Node rootCreatedByInorderAndPreorder = b.createTreeByPreorderAndInorder(preorder_array,inorder_array,0,inorder_array.length-1);
-        System.out.print("postOrder after create a tree by its inorder and preorder is : ");
+        System.out.print("\npostOrder after create a tree by its inorder and preorder is : ");
         b.postOrder(rootCreatedByInorderAndPreorder);
 
 
