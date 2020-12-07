@@ -633,6 +633,30 @@ class BinaryTree{
         return -1;
     }
 
+    public int getHeightOfTreeByIterativeMethod(Node node){
+        if(node == null)
+            return -1;
+        Queue<Node> q = new LinkedList<Node>();
+        q.add(node);
+        int height =0;
+        while (q.size()>0){
+            int size = q.size();
+
+            while (size >0){
+                Node temp = q.remove();
+                if(temp.left != null){
+                    q.add(temp.left);
+                }
+                if(temp.right !=null){
+                    q.add(temp.right);
+                }
+                size--;
+            }
+            height += 1;
+        }
+        return height;
+    }
+
 }
 
 public class BinaryTreeDataStructure {
@@ -855,6 +879,10 @@ public class BinaryTreeDataStructure {
         Node rootCreatedByInorderAndPreorder = b.createTreeByPreorderAndInorder(preorder_array,inorder_array,0,inorder_array.length-1);
         System.out.print("\npostOrder after create a tree by its inorder and preorder is : ");
         b.postOrder(rootCreatedByInorderAndPreorder);
+
+        System.out.println("\nHeight of tree by Iterative Method :- ");
+        int height = b.getHeightOfTreeByIterativeMethod(newRoot);
+        System.out.print(height);
 
 
     }
