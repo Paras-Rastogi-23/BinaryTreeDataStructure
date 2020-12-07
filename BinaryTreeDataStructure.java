@@ -596,6 +596,15 @@ class BinaryTree{
                 && areIsomorphicTrees(node1.right,node2.left)));
     }
 
+    public int getWidthOfParticularLevelOfTree(Node node , int level){
+        if(node == null)
+            return 0;
+        if(level == 1)
+            return 1;
+        return (getWidthOfParticularLevelOfTree(node.left,level-1)
+                +getWidthOfParticularLevelOfTree(node.right,level-1));
+    }
+
 }
 
 public class BinaryTreeDataStructure {
@@ -783,6 +792,9 @@ public class BinaryTreeDataStructure {
         System.out.println("\nSecond example");
         System.out.println("The trees are Isomorphic or not :-  ");
         System.out.print(b.areIsomorphicTrees(root,root));
+
+        System.out.println("The width of a particular 4th-level of tree is :-");
+        System.out.print(b.getWidthOfParticularLevelOfTree(newRoot,4));
 
     }
 }
