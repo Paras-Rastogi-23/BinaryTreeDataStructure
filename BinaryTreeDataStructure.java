@@ -584,6 +584,18 @@ class BinaryTree{
         return result;
     }
 
+    public boolean areIsomorphicTrees(Node node1 , Node node2){
+        if(node1==null && node2 == null)return true;
+        if(node1==null || node2==null)return false;
+        if(node1.value != node2.value)return false;
+
+        return ((areIsomorphicTrees(node1.left,node2.left)
+                && areIsomorphicTrees(node1.right,node2.right))
+                ||
+                (areIsomorphicTrees(node1.left,node2.right)
+                && areIsomorphicTrees(node1.right,node2.left)));
+    }
+
 }
 
 public class BinaryTreeDataStructure {
@@ -764,6 +776,14 @@ public class BinaryTreeDataStructure {
 
         System.out.println("\nThe tree is foldable or not :-  ");
         System.out.print(b.whetherTreeFoldableOrNot(foldableRoot));
+
+        // isomorphic means having property of same structure or mirror structure but data should be same in both case.
+        System.out.println("\nThe trees are Isomorphic or not :-  ");
+        System.out.print(b.areIsomorphicTrees(root,root2));
+        System.out.println("\nSecond example");
+        System.out.println("The trees are Isomorphic or not :-  ");
+        System.out.print(b.areIsomorphicTrees(root,root));
+
     }
 }
 
