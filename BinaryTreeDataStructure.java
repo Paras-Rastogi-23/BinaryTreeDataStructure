@@ -605,6 +605,15 @@ class BinaryTree{
                 +getWidthOfParticularLevelOfTree(node.right,level-1));
     }
 
+    public void createDoubleTreeOfGivenTree(Node node){
+        if(node ==null)return;
+        createDoubleTreeOfGivenTree(node.left);
+        createDoubleTreeOfGivenTree(node.right);
+        Node newNode = createNewNode(node.value);
+        newNode.left = node.left;
+        node.left = newNode;
+    }
+
 }
 
 public class BinaryTreeDataStructure {
@@ -630,6 +639,16 @@ public class BinaryTreeDataStructure {
         root2.left.right.left   = b.createNewNode(5);
         root2.left.right.right   = b.createNewNode(11);
         root2.right.right.left   = b.createNewNode(4);
+
+        Node rootToBeModifiedIntoDoubleMode    = b.createNewNode(2);
+        rootToBeModifiedIntoDoubleMode.left    = b.createNewNode(7);
+        rootToBeModifiedIntoDoubleMode.right   = b.createNewNode(5);
+        rootToBeModifiedIntoDoubleMode.left.left   = b.createNewNode(2);
+        rootToBeModifiedIntoDoubleMode.left.right   = b.createNewNode(6);
+        rootToBeModifiedIntoDoubleMode.right.right   = b.createNewNode(9);
+        rootToBeModifiedIntoDoubleMode.left.right.left   = b.createNewNode(5);
+        rootToBeModifiedIntoDoubleMode.left.right.right   = b.createNewNode(11);
+        rootToBeModifiedIntoDoubleMode.right.right.left   = b.createNewNode(4);
 
         Node rootToBeDeleted    = b.createNewNode(2);
         rootToBeDeleted.left    = b.createNewNode(7);
@@ -790,11 +809,19 @@ public class BinaryTreeDataStructure {
         System.out.println("\nThe trees are Isomorphic or not :-  ");
         System.out.print(b.areIsomorphicTrees(root,root2));
         System.out.println("\nSecond example");
-        System.out.println("The trees are Isomorphic or not :-  ");
+        System.out.print("\nThe trees are Isomorphic or not :-  ");
         System.out.print(b.areIsomorphicTrees(root,root));
 
-        System.out.println("The width of a particular 4th-level of tree is :-");
+        System.out.println("\nThe width of a particular 4th-level of tree is :-");
         System.out.print(b.getWidthOfParticularLevelOfTree(newRoot,4));
+
+        System.out.println("\nCreate Double tree of a given tree");
+        System.out.print("Inorder of tree before DoubleCreation :- ");
+        b.inorder(rootToBeModifiedIntoDoubleMode);
+        b.createDoubleTreeOfGivenTree(rootToBeModifiedIntoDoubleMode);
+        System.out.print("\nInorder of tree after DoubleCreation:- ");
+        b.inorder(rootToBeModifiedIntoDoubleMode);
+
 
     }
 }
