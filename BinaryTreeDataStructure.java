@@ -656,6 +656,17 @@ class BinaryTree{
         }
         return height;
     }
+    int diameter=0;
+    public int getDiameterOfTree(Node node){
+        if(node == null)return 0;
+        if(node.left == null && node.right==null)return 1;
+
+        int lh = getDiameterOfTree(node.left);
+        int rh = getDiameterOfTree(node.right);
+
+        diameter = Math.max(diameter , (lh+rh+1));
+        return (Math.max(lh,rh)+1);
+    }
 
 }
 
@@ -884,6 +895,9 @@ public class BinaryTreeDataStructure {
         int height = b.getHeightOfTreeByIterativeMethod(newRoot);
         System.out.print(height);
 
+        System.out.print("\nDiameter of tree OR Maximum Distance between any two leaf node is :- ");
+        b.getDiameterOfTree(newRoot);
+        System.out.print(b.diameter);
 
     }
 }
