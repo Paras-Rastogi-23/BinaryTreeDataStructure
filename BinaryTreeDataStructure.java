@@ -638,7 +638,7 @@ class BinaryTree{
             return -1;
         Queue<Node> q = new LinkedList<Node>();
         q.add(node);
-        int height =0;
+        int height =-1;
         while (q.size()>0){
             int size = q.size();
 
@@ -666,6 +666,15 @@ class BinaryTree{
 
         diameter = Math.max(diameter , (lh+rh+1));
         return (Math.max(lh,rh)+1);
+    }
+
+    public boolean checkForHeightBalancedTree(Node node){
+        if(node == null)return true;
+        if(node.left == null && node.right == null)return true;
+        int lh = getHeightOfTree(node.left);
+        int rh = getHeightOfTree(node.right);
+        return (((lh>rh?lh-rh:rh-lh)<=1) && checkForHeightBalancedTree(node.left) && checkForHeightBalancedTree(node.right));
+
     }
 
 }
@@ -738,6 +747,17 @@ public class BinaryTreeDataStructure {
         foldableRoot.right.left = b.createNewNode(6);
         foldableRoot.right.right = b.createNewNode(7);
 
+        Node heightBalancedTree    = b.createNewNode(2);
+        heightBalancedTree.left    = b.createNewNode(7);
+        heightBalancedTree.right   = b.createNewNode(5);
+        heightBalancedTree.left.left   = b.createNewNode(2);
+        heightBalancedTree.left.right  = b.createNewNode(6);
+        heightBalancedTree.right.left  = b.createNewNode(1);
+        heightBalancedTree.right.right = b.createNewNode(9);
+        heightBalancedTree.left.right.left   = b.createNewNode(5);
+        heightBalancedTree.left.right.right  = b.createNewNode(11);
+        heightBalancedTree.right.right.left  = b.createNewNode(4);
+
 
         System.out.println("Inorder : ");
         b.inorder(root);
@@ -752,7 +772,7 @@ public class BinaryTreeDataStructure {
         System.out.println("\nDifference of all the Even/Odd nodes of tree : "+ b.getEvenOddDifference(root));
         System.out.println("\nNumber of nodes in tree : "+ b.getNumberOfNodes(root));
         System.out.println("\nNumber of leaf nodes in tree : "+ b.getNumberOfLeafNodes(root));
-        System.out.println("\nThe Height of tree : "+ b.getHeightOfTree(root));
+        System.out.println("\nThe Height of tree : "+ b.getHeightOfTree(root2));
 
 //        System.out.println("Enter the level at which you want to know the values");
 //        int level = Integer.parseInt(br.readLine());
@@ -891,13 +911,16 @@ public class BinaryTreeDataStructure {
         System.out.print("\npostOrder after create a tree by its inorder and preorder is : ");
         b.postOrder(rootCreatedByInorderAndPreorder);
 
-        System.out.println("\nHeight of tree by Iterative Method :- ");
-        int height = b.getHeightOfTreeByIterativeMethod(newRoot);
+        System.out.print("\nHeight of tree by Iterative Method :- ");
+        int height = b.getHeightOfTreeByIterativeMethod(root);
         System.out.print(height);
 
         System.out.print("\nDiameter of tree OR Maximum Distance between any two leaf node is :- ");
         b.getDiameterOfTree(newRoot);
         System.out.print(b.diameter);
+
+        System.out.println("\nCheck whether tree is HeightBalancedTree or Not :- ");
+        System.out.print(b.checkForHeightBalancedTree(heightBalancedTree));
 
     }
 }
