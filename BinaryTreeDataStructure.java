@@ -697,6 +697,14 @@ class BinaryTree{
          IN this method if return -1  --> false   then --> true*/
     }
 
+    public boolean ifRootToLeafPathSumMatches(Node node , int givenSum){
+        if(node == null)return false;
+        if(node.left == null && node.right == null && givenSum == node.value)return true;
+
+        return ifRootToLeafPathSumMatches(node.left,givenSum-node.value)
+                || ifRootToLeafPathSumMatches(node.right,givenSum-node.value);
+    }
+
 }
 
 public class BinaryTreeDataStructure {
@@ -941,6 +949,9 @@ public class BinaryTreeDataStructure {
 
         System.out.println("\nCheck whether tree is HeightBalancedTree or Not :- ");
         System.out.print(b.checkForHeightBalancedTree(heightBalancedTree));
+
+        System.out.println("\nRoot To Leaf Path Sum Matches by given sum :- ");
+        System.out.print(b.ifRootToLeafPathSumMatches(newRoot,37));
 
     }
 }
