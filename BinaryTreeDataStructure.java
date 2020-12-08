@@ -727,7 +727,7 @@ class BinaryTree{
             if(max<arr[i])max=arr[i];
 
         }
-        System.out.println("  Maximum from this Root To Leaf Nodes is : "+max);
+        System.out.println(" And Node containing largest value as : "+max);
     }
 
 }
