@@ -721,10 +721,13 @@ class BinaryTree{
     }
 
     public void printRootToLeafImpArray(int[] arr ,int length){
+        int max =0;
         for (int i = 0; i <= length; i++) {
             System.out.print(arr[i]+" ");
+            if(max<arr[i])max=arr[i];
+
         }
-        System.out.println();
+        System.out.println("  Maximum from this Root To Leaf Nodes is : "+max);
     }
 
 }
