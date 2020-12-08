@@ -705,6 +705,28 @@ class BinaryTree{
                 || ifRootToLeafPathSumMatches(node.right,givenSum-node.value);
     }
 
+    public void printRootToLeaf(Node node){
+        if(node == null)return;
+        int[] arr = new int[20];
+        printRootToLeafImplementation(arr , 0 ,node);
+    }
+
+    public void printRootToLeafImplementation(int[] arr ,int length,Node node){
+        if(node == null)return;
+        arr[length]=node.value;
+        if(node.left == null && node.right==null)
+            printRootToLeafImpArray(arr,length);
+        printRootToLeafImplementation(arr,length+1,node.left);
+        printRootToLeafImplementation(arr,length+1,node.right);
+    }
+
+    public void printRootToLeafImpArray(int[] arr ,int length){
+        for (int i = 0; i <= length; i++) {
+            System.out.print(arr[i]+" ");
+        }
+        System.out.println();
+    }
+
 }
 
 public class BinaryTreeDataStructure {
@@ -952,6 +974,9 @@ public class BinaryTreeDataStructure {
 
         System.out.println("\nRoot To Leaf Path Sum Matches by given sum :- ");
         System.out.print(b.ifRootToLeafPathSumMatches(newRoot,37));
+
+        System.out.println("\nAll Root to leaf paths are :- ");
+        b.printRootToLeaf(newRoot);
 
     }
 }
