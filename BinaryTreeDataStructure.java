@@ -674,7 +674,27 @@ class BinaryTree{
         int lh = getHeightOfTree(node.left);
         int rh = getHeightOfTree(node.right);
         return (((lh>rh?lh-rh:rh-lh)<=1) && checkForHeightBalancedTree(node.left) && checkForHeightBalancedTree(node.right));
+        /** ALTERNATIVE METHOD & BEST ALSO
 
+         public int ifHeightBalancedTree(Node node) {
+         if (node == null) {
+         return 0;
+         }
+
+         if(node.left == null && node.right == null) {
+         return 1;
+         }
+
+         int lH = ifHeightBalancedTree(node.left);
+         int rH = ifHeightBalancedTree(node.right);
+
+         if(lH == -1 || rH == -1 || Math.abs(lH - rH) > 1) {
+         return -1;
+         }
+
+         return Math.max(lH, rH) + 1;
+         }
+         IN this method if return -1  --> false   then --> true*/
     }
 
 }
