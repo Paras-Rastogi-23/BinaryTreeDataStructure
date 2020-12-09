@@ -889,7 +889,7 @@ public class BinaryTreeDataStructure {
         int levelOfNode = b.findTheLevelOfNode(root,nodeValue,1);
         System.out.println(levelOfNode!=0?"The level at which "+nodeValue+" is present : "+levelOfNode:nodeValue+" is not present in the tree");
 
-        System.out.println("The top view of tree is :");
+        System.out.println("The Top View of Tree is :");
         b.getTopViewOfTree(root);
 
         System.out.println("The bottom view of tree is :");
