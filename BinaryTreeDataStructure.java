@@ -730,6 +730,10 @@ class BinaryTree{
         System.out.println(" And Node containing maximum value as : "+max);
     }
 
+    public void getRootToLeafPathHavingMaximumSum(Node node){
+
+    }
+
 }
 
 public class BinaryTreeDataStructure {
@@ -838,7 +842,7 @@ public class BinaryTreeDataStructure {
             b.printValuesAtGivenLevel(root,i);
         }
 
-        System.out.println("\nLever order traversal of tree : ");
+        System.out.println("\nLevel order traversal of tree : ");
         b.levelOrderTraversalWithoutRecursion(root);
 
         System.out.println("\nReverse level order traversal : ");
@@ -855,7 +859,7 @@ public class BinaryTreeDataStructure {
         System.out.println("\n leftViewOfBinaryTree : ");
         b.leftViewOfBinaryTree(root , 0);
 
-        System.out.println("\nrightViewOfBinaryTree : ");
+        System.out.println("\nright View of Binary Tree : ");
         b.rightViewOfBinaryTree(root , 0);
 
         System.out.println("\nThe inorder Traversal without using recursion is : ");
@@ -980,6 +984,9 @@ public class BinaryTreeDataStructure {
 
         System.out.println("\nAll Root to leaf paths are :- ");
         b.printRootToLeaf(newRoot);
+
+        System.out.println("\n The Root to Leaf Path having the maximum sum by the sum of values of their nodes");
+        b.getRootToLeafPathHavingMaximumSum(newRoot);
 
     }
 }
