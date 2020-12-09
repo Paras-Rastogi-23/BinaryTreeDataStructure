@@ -881,7 +881,7 @@ public class BinaryTreeDataStructure {
         System.out.println("After Deletion of tree it becomes : "+deleteTree);
 
 
-        System.out.print("Check whether root and root2 both trees are identical or not : ");
+        System.out.print("Check Whether root and root2 both trees are identical or not : ");
         System.out.print(b.checkIdenticalTree(root,root2));
 
         System.out.print("\nEnter the value of Node whose level you want to find out : ");
