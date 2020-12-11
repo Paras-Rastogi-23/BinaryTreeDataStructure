@@ -673,7 +673,7 @@ class BinaryTree{
         if(node.left == null && node.right == null)return true;
         int lh = getHeightOfTree(node.left);
         int rh = getHeightOfTree(node.right);
-        return (((lh>rh?lh-rh:rh-lh)<=1) && checkForHeightBalancedTree(node.left) && checkForHeightBalancedTree(node.right));
+        return ((Math.abs(lh - rh)<=1) && checkForHeightBalancedTree(node.left) && checkForHeightBalancedTree(node.right));
         /** ALTERNATIVE METHOD & BEST ALSO
 
          public int ifHeightBalancedTree(Node node) {
@@ -729,9 +729,17 @@ class BinaryTree{
         }
         System.out.println(" And Node containing maximum value as : "+max);
     }
+    int maxSum;
+    public void getRootToLeafPathHavingMaximumSum(Node node, int sum){
+        if(node == null)return;
 
-    public void getRootToLeafPathHavingMaximumSum(Node node){
+        if (node.left == null && node.right == null && sum + node.value > maxSum) {
+            maxSum = sum + node.value;
+            return;
+        }
 
+        getRootToLeafPathHavingMaximumSum(node.left,sum + node.value);
+        getRootToLeafPathHavingMaximumSum(node.right,sum + node.value);
     }
 
 }
@@ -985,8 +993,9 @@ public class BinaryTreeDataStructure {
         System.out.println("\nAll Root to leaf paths are :- ");
         b.printRootToLeaf(newRoot);
 
-        System.out.println("\n The Root to Leaf Path having the maximum sum by the sum of values of their nodes");
-        b.getRootToLeafPathHavingMaximumSum(newRoot);
+        System.out.print("\nThe Root to Leaf Path having the maximum sum by the sum of values of their nodes is : ");
+        b.getRootToLeafPathHavingMaximumSum(newRoot,0);
+        System.out.println(b.maxSum);
 
     }
 }
